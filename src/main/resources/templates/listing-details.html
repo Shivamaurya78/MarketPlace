@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>Listing Details | MarketPlace</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Inter, Arial, sans-serif;
+            background: #f6f7f9;
+            color: #17202a;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 72px;
+            background: #ffffff;
+            border-bottom: 1px solid #e7e9ed;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+        }
+
+        .logo span {
+            color: #2563eb;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4b5563;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .register-btn {
+            padding: 10px 18px;
+            border: 1px solid #d8dde5;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            background: white;
+        }
+
+        .sell-btn {
+            padding: 11px 20px;
+            border-radius: 10px;
+            background: #2563eb;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .sell-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        /* ================= PAGE ================= */
+
+        .page {
+            width: 88%;
+            max-width: 1200px;
+            margin: 30px auto 70px;
+        }
+
+        .breadcrumb {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 22px;
+        }
+
+        .breadcrumb a {
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        /* ================= MAIN CARD ================= */
+
+        .listing-wrapper {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+            display: grid;
+            grid-template-columns: 45% 55%;
+            min-height: 540px;
+        }
+
+        /* ================= VISUAL ================= */
+
+        .visual-section {
+            background: linear-gradient(145deg, #eef4ff, #f8fafc);
+            min-height: 540px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visual-section::before {
+            content: "";
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.08);
+            position: absolute;
+            top: -80px;
+            left: -80px;
+        }
+
+        .visual-icon {
+            width: 180px;
+            height: 180px;
+            border-radius: 32px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 75px;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.10);
+            z-index: 2;
+            animation: floatItem 4s ease-in-out infinite;
+        }
+
+        @keyframes floatItem {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* ================= DETAILS ================= */
+
+        .details-section {
+            padding: 42px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .type-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 12px;
+            border-radius: 30px;
+            background: #eff6ff;
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .listing-id {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .title {
+            font-size: 36px;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            color: #111827;
+        }
+
+        .price {
+            font-size: 32px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 22px;
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4b5563;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .location-icon {
+            font-size: 17px;
+        }
+
+        .divider {
+            height: 1px;
+            background: #edf0f3;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .description {
+            color: #5b6472;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 28px;
+            white-space: pre-line;
+        }
+
+        /* ================= INFO ================= */
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            padding: 14px;
+            border: 1px solid #edf0f3;
+            border-radius: 12px;
+            background: #fafbfc;
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: #8b95a1;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .info-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #26313d;
+            word-break: break-word;
+        }
+
+        /* ================= ACTIONS ================= */
+
+        .actions {
+            margin-top: auto;
+            display: flex;
+            gap: 12px;
+        }
+
+        .back-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 11px;
+            border: 1px solid #d9dee6;
+            background: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #f8fafc;
+        }
+
+        .contact-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 11px;
+            background: #2563eb;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .contact-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        /* ================= STATES ================= */
+
+        .state {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            padding: 70px 20px;
+            text-align: center;
+        }
+
+        .state-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .state h2 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .state p {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .retry-btn {
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 11px 20px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #111827;
+            color: #d1d5db;
+            padding: 35px 6%;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .listing-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .visual-section {
+                min-height: 350px;
+            }
+
+            .details-section {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                height: 65px;
+            }
+
+            .logo {
+                font-size: 21px;
+            }
+
+            .register-btn {
+                display: none;
+            }
+
+            .sell-btn {
+                padding: 9px 14px;
+            }
+
+            .page {
+                width: 94%;
+                margin-top: 20px;
+            }
+
+            .visual-section {
+                min-height: 280px;
+            }
+
+            .visual-icon {
+                width: 130px;
+                height: 130px;
+                font-size: 55px;
+            }
+
+            .details-section {
+                padding: 24px 20px;
+            }
+
+            .title {
+                font-size: 28px;
+            }
+
+            .price {
+                font-size: 27px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <a href="/" class="logo">
+        Market<span>Place</span>
+    </a>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/category?categoryName=Electronics">Categories</a>
+        <a href="/">Listings</a>
+    </div>
+
+    <div class="nav-actions">
+        <a href="/register" class="register-btn">Register</a>
+        <a href="/add-listing" class="sell-btn">+ Sell</a>
+    </div>
+
+
+</nav>
+
+<!-- ================= CONTENT ================= -->
+
+<main class="page">
+
+
+    <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span> / Listing Details</span>
+    </div>
+
+    <div id="loadingState" class="state">
+
+        <div class="state-icon">⏳</div>
+
+        <h2>Loading listing...</h2>
+
+        <p>Please wait while we fetch the listing details.</p>
+
+    </div>
+
+
+    <div id="errorState" class="state" style="display:none;">
+
+        <div class="state-icon">⚠️</div>
+
+        <h2>Listing not found</h2>
+
+        <p id="errorMessage">
+            We couldn't load this listing.
+        </p>
+
+        <button class="retry-btn" onclick="loadListing()">
+            Try Again
+        </button>
+
+    </div>
+
+
+    <div id="listingContent" style="display:none;">
+
+        <div class="listing-wrapper">
+
+            <!-- VISUAL -->
+
+            <div class="visual-section">
+
+                <div class="visual-icon" id="visualIcon">
+                    🛍️
+                </div>
+
+            </div>
+
+
+            <!-- DETAILS -->
+
+            <div class="details-section">
+
+                <div class="top-row">
+
+                <span class="type-badge" id="listingType">
+                    PRODUCT
+                </span>
+
+                    <span class="listing-id" id="listingId">
+                    Listing #--
+                </span>
+
+                </div>
+
+
+                <h1 class="title" id="listingName">
+                    Listing Name
+                </h1>
+
+
+                <div class="price" id="listingPrice">
+                    ₹0
+                </div>
+
+
+                <div class="location">
+
+                    <span class="location-icon">📍</span>
+
+                    <span id="listingLocation">
+                    Location
+                </span>
+
+                </div>
+
+
+                <div class="divider"></div>
+
+
+                <h3 class="section-title">
+                    Description
+                </h3>
+
+                <p class="description" id="listingDetail">
+                    No description available.
+                </p>
+
+
+                <h3 class="section-title">
+                    Listing Information
+                </h3>
+
+
+                <div class="info-grid">
+
+                    <div class="info-item">
+
+                        <div class="info-label">
+                            Category
+                        </div>
+
+                        <div class="info-value" id="listingCategory">
+                            —
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <div class="info-label">
+                            Subcategory
+                        </div>
+
+                        <div class="info-value" id="listingSubcategory">
+                            —
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <div class="info-label">
+                            Country
+                        </div>
+
+                        <div class="info-value" id="listingCountry">
+                            —
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <div class="info-label">
+                            Area
+                        </div>
+
+                        <div class="info-value" id="listingArea">
+                            —
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="actions">
+
+                    <a href="/" class="back-btn">
+                        ← Back to Listings
+                    </a>
+
+                    <button class="contact-btn" onclick="contactSeller()">
+                        Contact Seller
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+
+    <strong>MarketPlace</strong>
+
+    <br><br>
+
+    Buy, sell and discover products & services locally.
+
+
+</footer>
+
+<script>
+
+    // =====================================================
+    // GET LISTING ID FROM URL
+    // Example: /listing/5
+    // =====================================================
+
+    function getListingId() {
+
+        const pathParts = window.location.pathname
+            .split("/")
+            .filter(Boolean);
+
+        return pathParts[pathParts.length - 1];
+
+    }
+
+
+    // =====================================================
+    // HTML ESCAPE
+    // =====================================================
+
+    function escapeHtml(value) {
+
+        if (value === null || value === undefined) {
+            return "";
+        }
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    // =====================================================
+    // FORMAT PRICE
+    // =====================================================
+
+    function formatPrice(price) {
+
+        if (price === null || price === undefined || price === "") {
+            return "Price not available";
+        }
+
+        const number = Number(price);
+
+        if (Number.isNaN(number)) {
+            return escapeHtml(price);
+        }
+
+        return "₹" + number.toLocaleString("en-IN");
+
+    }
+
+
+    // =====================================================
+    // LOAD LISTING
+    // =====================================================
+
+    async function loadListing() {
+
+        const id = getListingId();
+
+        const loadingState =
+            document.getElementById("loadingState");
+
+        const errorState =
+            document.getElementById("errorState");
+
+        const listingContent =
+            document.getElementById("listingContent");
+
+        loadingState.style.display = "block";
+        errorState.style.display = "none";
+        listingContent.style.display = "none";
+
+
+        if (!id || isNaN(Number(id))) {
+
+            loadingState.style.display = "none";
+            errorState.style.display = "block";
+
+            document.getElementById("errorMessage").textContent =
+                "Invalid listing ID.";
+
+            return;
+        }
+
+
+        try {
+
+            const response =
+                await fetch("/api/listings/" + encodeURIComponent(id));
+
+
+            if (!response.ok) {
+                throw new Error(
+                    "Listing could not be found."
+                );
+            }
+
+
+            const listing =
+                await response.json();
+
+
+            renderListing(listing);
+
+
+            loadingState.style.display = "none";
+            listingContent.style.display = "block";
+
+
+        } catch (error) {
+
+            console.error(
+                "Error loading listing:",
+                error
+            );
+
+            loadingState.style.display = "none";
+            errorState.style.display = "block";
+
+            document.getElementById("errorMessage").textContent =
+                "Unable to load this listing. Please try again.";
+
+        }
+
+    }
+
+
+    // =====================================================
+    // RENDER LISTING
+    // =====================================================
+
+    function renderListing(listing) {
+
+        document.getElementById("listingType").textContent =
+            listing.type
+                ? String(listing.type).toUpperCase()
+                : "LISTING";
+
+
+        document.getElementById("listingId").textContent =
+            "Listing #" +
+            (listing.id ?? "--");
+
+
+        document.getElementById("listingName").textContent =
+            listing.name || "Untitled Listing";
+
+
+        document.getElementById("listingPrice").textContent =
+            formatPrice(listing.price);
+
+
+        const locationParts = [
+            listing.area,
+            listing.city,
+            listing.state
+        ].filter(Boolean);
+
+
+        document.getElementById("listingLocation").textContent =
+            locationParts.length
+                ? locationParts.join(", ")
+                : "Location not specified";
+
+
+        document.getElementById("listingDetail").textContent =
+            listing.detail ||
+            "No description available.";
+
+
+        document.getElementById("listingCategory").textContent =
+            listing.category?.name ||
+            "Not specified";
+
+
+        document.getElementById("listingSubcategory").textContent =
+            listing.subcategory?.name ||
+            "Not specified";
+
+
+        document.getElementById("listingCountry").textContent =
+            listing.country ||
+            "Not specified";
+
+
+        document.getElementById("listingArea").textContent =
+            listing.area ||
+            "Not specified";
+
+
+        // Change visual icon according to type/category
+
+        const type =
+            String(listing.type || "").toLowerCase();
+
+        const category =
+            String(listing.category?.name || "").toLowerCase();
+
+
+        let icon = "🛍️";
+
+
+        if (
+            category.includes("vehicle") ||
+            type.includes("vehicle")
+        ) {
+
+            icon = "🚗";
+
+        } else if (
+            category.includes("electronic")
+        ) {
+
+            icon = "📱";
+
+        } else if (
+            type.includes("service")
+        ) {
+
+            icon = "🛠️";
+
+        }
+
+
+        document.getElementById("visualIcon").textContent =
+            icon;
+
+
+        // Update browser title
+
+        document.title =
+            (listing.name || "Listing Details") +
+            " | MarketPlace";
+
+    }
+
+
+    // =====================================================
+    // CONTACT SELLER
+    // =====================================================
+
+    function contactSeller() {
+
+        alert(
+            "Seller contact functionality can be connected here."
+        );
+
+    }
+
+
+    // =====================================================
+    // INITIAL LOAD
+    // =====================================================
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+            loadListing();
+        }
+    );
+
+</script>
+
+</body>
+</html>

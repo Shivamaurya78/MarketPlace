@@ -1,0 +1,1254 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Category Listings | MarketPlace</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet">
+
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #f7f8fa;
+            color: #171717;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(14px);
+
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            min-height: 70px;
+
+            margin: auto;
+            padding: 0 20px;
+
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: #2563eb;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            margin-left: 40px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+
+            transition: 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .nav-actions {
+            margin-left: auto;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .register-btn {
+            padding: 9px 15px;
+
+            border: 1px solid #ddd;
+            border-radius: 8px;
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .sell-btn {
+            padding: 10px 16px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #2563eb;
+            color: white;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .sell-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 18px rgba(37,99,235,0.25);
+        }
+
+        /* ================= PAGE ================= */
+
+        .page {
+            max-width: 1200px;
+
+            margin: auto;
+            padding: 35px 20px 70px;
+        }
+
+        /* ================= BREADCRUMB ================= */
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            color: #888;
+            font-size: 13px;
+
+            margin-bottom: 25px;
+        }
+
+        .breadcrumb a {
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        /* ================= HEADER ================= */
+
+        .category-header {
+            background: white;
+
+            border: 1px solid #e8e8e8;
+            border-radius: 16px;
+
+            padding: 28px;
+
+            margin-bottom: 25px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+
+            animation: fadeUp 0.5s ease;
+        }
+
+        .category-heading {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .category-icon {
+            width: 58px;
+            height: 58px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: #eff6ff;
+            color: #2563eb;
+
+            font-size: 24px;
+        }
+
+        .category-header h1 {
+            font-size: 30px;
+            letter-spacing: -1px;
+
+            margin-bottom: 4px;
+        }
+
+        .category-header p {
+            color: #777;
+            font-size: 13px;
+        }
+
+        #listingCount {
+            color: #2563eb;
+            font-weight: 700;
+        }
+
+        /* ================= CONTROLS ================= */
+
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 20px;
+
+            gap: 15px;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 500px;
+
+            display: flex;
+            align-items: center;
+
+            background: white;
+
+            border: 1px solid #ddd;
+            border-radius: 9px;
+
+            padding: 0 13px;
+        }
+
+        .search-box i {
+            color: #999;
+        }
+
+        .search-box input {
+            width: 100%;
+
+            border: none;
+            outline: none;
+
+            padding: 12px;
+
+            font-size: 13px;
+        }
+
+        .sort-select {
+            padding: 11px 13px;
+
+            background: white;
+
+            border: 1px solid #ddd;
+            border-radius: 9px;
+
+            outline: none;
+
+            font-size: 13px;
+            color: #444;
+
+            cursor: pointer;
+        }
+
+        /* ================= LISTINGS ================= */
+
+        .listings {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fill, minmax(250px, 1fr));
+
+            gap: 20px;
+        }
+
+        .listing-card {
+            background: white;
+
+            border: 1px solid #e8e8e8;
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+
+            animation: fadeUp 0.45s ease;
+        }
+
+        .listing-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,0.09);
+        }
+
+        .listing-image {
+            height: 175px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef2ff,
+                    #f8fafc
+                );
+
+            color: #94a3b8;
+
+            font-size: 42px;
+
+            transition: transform 0.3s ease;
+        }
+
+        .listing-card:hover .listing-image {
+            transform: scale(1.025);
+        }
+
+        .listing-content {
+            padding: 17px;
+        }
+
+        .listing-type {
+            display: inline-block;
+
+            padding: 4px 8px;
+
+            border-radius: 5px;
+
+            background: #f1f5f9;
+            color: #64748b;
+
+            font-size: 10px;
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        .listing-title {
+            font-size: 16px;
+            font-weight: 700;
+
+            margin-bottom: 7px;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .listing-detail {
+            color: #777;
+            font-size: 13px;
+
+            height: 40px;
+            overflow: hidden;
+
+            margin-bottom: 13px;
+        }
+
+        .listing-price {
+            font-size: 19px;
+            font-weight: 800;
+
+            margin-bottom: 9px;
+        }
+
+        .meta {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            color: #777;
+            font-size: 12px;
+
+            margin-top: 5px;
+        }
+
+        .meta i {
+            color: #2563eb;
+            width: 14px;
+        }
+
+        .details-btn {
+            display: block;
+
+            text-align: center;
+
+            margin-top: 15px;
+            padding: 10px;
+
+            border-radius: 8px;
+
+            background: #f8fafc;
+            color: #2563eb;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .details-btn:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* ================= STATES ================= */
+
+        .state {
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+            padding: 70px 20px;
+
+            color: #777;
+        }
+
+        .state i {
+            font-size: 35px;
+            color: #94a3b8;
+
+            margin-bottom: 14px;
+        }
+
+        .state p {
+            font-size: 14px;
+        }
+
+        .retry-btn {
+            margin-top: 15px;
+
+            border: none;
+            border-radius: 8px;
+
+            padding: 10px 18px;
+
+            background: #2563eb;
+            color: white;
+
+            cursor: pointer;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #111;
+            color: white;
+
+            padding: 35px 20px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .footer-brand h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .footer-brand span {
+            color: #60a5fa;
+        }
+
+        .footer-brand p {
+            max-width: 350px;
+
+            color: #999;
+            font-size: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            max-width: 1200px;
+
+            margin: 25px auto 0;
+
+            padding-top: 18px;
+
+            border-top: 1px solid #292929;
+
+            color: #777;
+            font-size: 11px;
+        }
+
+        /* ================= ANIMATION ================= */
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 700px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .register-btn {
+                display: none;
+            }
+
+            .category-header {
+                align-items: flex-start;
+            }
+
+            .category-heading {
+                align-items: flex-start;
+            }
+
+            .category-header h1 {
+                font-size: 24px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: none;
+            }
+
+            .sort-select {
+                width: 100%;
+            }
+
+            .listings {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <a href="/" class="logo">
+            Market<span>Place</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/#categories">
+                Categories
+            </a>
+
+            <a href="/#latest">
+                Listings
+            </a>
+
+        </div>
+
+        <div class="nav-actions">
+
+            <a href="/register" class="register-btn">
+                Register
+            </a>
+
+            <a href="/add-listing" class="sell-btn">
+                <i class="fa-solid fa-plus"></i>
+                Sell
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= PAGE ================= -->
+
+<main class="page">
+
+
+    <!-- Breadcrumb -->
+
+    <div class="breadcrumb">
+
+        <a href="/">
+            Home
+        </a>
+
+        <i class="fa-solid fa-chevron-right"></i>
+
+        <span id="breadcrumbCategory">
+            Category
+        </span>
+
+    </div>
+
+
+    <!-- Category Header -->
+
+    <section class="category-header">
+
+        <div class="category-heading">
+
+            <div class="category-icon" id="categoryIcon">
+
+                <i class="fa-solid fa-layer-group"></i>
+
+            </div>
+
+            <div>
+
+                <h1 id="categoryTitle">
+                    Loading...
+                </h1>
+
+                <p>
+                    Browse products and services in this category.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div>
+
+            <span id="listingCount">
+                Loading...
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- Controls -->
+
+    <div class="controls">
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search within this category..."
+            >
+
+        </div>
+
+
+        <select id="sortSelect" class="sort-select">
+
+            <option value="default">
+                Sort: Default
+            </option>
+
+            <option value="price-low">
+                Price: Low to High
+            </option>
+
+            <option value="price-high">
+                Price: High to Low
+            </option>
+
+            <option value="name">
+                Name: A-Z
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- Listings -->
+
+    <section class="listings" id="listings">
+
+        <div class="state">
+
+            <i class="fa-solid fa-spinner fa-spin"></i>
+
+            <p>
+                Loading listings...
+            </p>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-container">
+
+        <div class="footer-brand">
+
+            <h2>
+                Market<span>Place</span>
+            </h2>
+
+            <p>
+                A simple and modern marketplace for buying,
+                selling and discovering products and services.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/add-listing">
+                Sell
+            </a>
+
+            <a href="/register">
+                Register
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+        © 2026 MarketPlace. All rights reserved.
+
+    </div>
+
+</footer>
+
+
+<script>
+
+    /* ================= GET CATEGORY ================= */
+
+    const params =
+        new URLSearchParams(window.location.search);
+
+    const categoryName =
+        params.get("categoryName");
+
+
+    const listingsContainer =
+        document.getElementById("listings");
+
+    const categoryTitle =
+        document.getElementById("categoryTitle");
+
+    const breadcrumbCategory =
+        document.getElementById("breadcrumbCategory");
+
+    const listingCount =
+        document.getElementById("listingCount");
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    const sortSelect =
+        document.getElementById("sortSelect");
+
+
+    let allListings = [];
+
+
+    /* ================= CATEGORY VALIDATION ================= */
+
+    if (!categoryName) {
+
+        categoryTitle.textContent =
+            "Category not selected";
+
+        listingCount.textContent = "";
+
+        listingsContainer.innerHTML = `
+
+            <div class="state">
+
+                <i class="fa-solid fa-layer-group"></i>
+
+                <p>
+                    Please select a category first.
+                </p>
+
+                <a
+                    href="/"
+                    style="
+                        display:inline-block;
+                        margin-top:15px;
+                        color:#2563eb;
+                        font-weight:700;
+                    "
+                >
+                    ← Back to Marketplace
+                </a>
+
+            </div>
+
+        `;
+
+    } else {
+
+        categoryTitle.textContent =
+            categoryName + " Listings";
+
+        breadcrumbCategory.textContent =
+            categoryName;
+
+        loadListings();
+
+    }
+
+
+    /* ================= LOAD LISTINGS ================= */
+
+    function loadListings() {
+
+        listingsContainer.innerHTML = `
+
+            <div class="state">
+
+                <i class="fa-solid fa-spinner fa-spin"></i>
+
+                <p>
+                    Loading ${categoryName} listings...
+                </p>
+
+            </div>
+
+        `;
+
+
+        fetch(
+            "/api/listings/category/" +
+            encodeURIComponent(categoryName)
+        )
+
+        .then(response => {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to load category listings"
+                );
+
+            }
+
+            return response.json();
+
+        })
+
+        .then(listings => {
+
+            allListings = listings;
+
+            updateCount();
+
+            renderListings(listings);
+
+        })
+
+        .catch(error => {
+
+            console.error(error);
+
+            listingCount.textContent = "";
+
+            listingsContainer.innerHTML = `
+
+                <div class="state">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    <p>
+                        Unable to load listings.
+                    </p>
+
+                    <button
+                        class="retry-btn"
+                        onclick="loadListings()"
+                    >
+                        Try Again
+                    </button>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+
+    /* ================= RENDER ================= */
+
+    function renderListings(listings) {
+
+        listingsContainer.innerHTML = "";
+
+
+        if (!listings.length) {
+
+            listingsContainer.innerHTML = `
+
+                <div class="state">
+
+                    <i class="fa-solid fa-box-open"></i>
+
+                    <p>
+                        No listings available in this category yet.
+                    </p>
+
+                    <a
+                        href="/add-listing"
+                        style="
+                            display:inline-block;
+                            margin-top:15px;
+                            color:#2563eb;
+                            font-weight:700;
+                            font-size:13px;
+                        "
+                    >
+                        Create a listing →
+                    </a>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        listings.forEach(listing => {
+
+            const card =
+                document.createElement("article");
+
+            card.className =
+                "listing-card";
+
+
+            const category =
+                listing.category
+                    ? listing.category.name
+                    : categoryName;
+
+
+            const type =
+                listing.type
+                    ? listing.type
+                    : "LISTING";
+
+
+            card.innerHTML = `
+
+                <div class="listing-image">
+
+                    <i class="fa-solid fa-image"></i>
+
+                </div>
+
+
+                <div class="listing-content">
+
+                    <span class="listing-type">
+                        ${type}
+                    </span>
+
+
+                    <h3 class="listing-title">
+                        ${escapeHtml(listing.name)}
+                    </h3>
+
+
+                    <p class="listing-detail">
+                        ${escapeHtml(listing.detail)}
+                    </p>
+
+
+                    <div class="listing-price">
+
+                        ₹ ${listing.price}
+
+                    </div>
+
+
+                    <div class="meta">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <span>
+                            ${escapeHtml(listing.city)},
+                            ${escapeHtml(listing.state)}
+                        </span>
+
+                    </div>
+
+
+                    <div class="meta">
+
+                        <i class="fa-solid fa-tag"></i>
+
+                        <span>
+                            ${escapeHtml(category)}
+                        </span>
+
+                    </div>
+
+
+                    <a
+                        href="/listing/${listing.id}"
+                        class="details-btn"
+                    >
+
+                        View Details
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            `;
+
+
+            listingsContainer.appendChild(card);
+
+        });
+
+    }
+
+
+    /* ================= SEARCH ================= */
+
+    searchInput.addEventListener(
+        "input",
+        function () {
+
+            const keyword =
+                this.value
+                    .trim()
+                    .toLowerCase();
+
+
+            const filtered =
+                allListings.filter(listing =>
+
+                    listing.name
+                        .toLowerCase()
+                        .includes(keyword)
+
+                    ||
+
+                    listing.detail
+                        .toLowerCase()
+                        .includes(keyword)
+
+                );
+
+
+            updateCount(filtered.length);
+
+            renderListings(filtered);
+
+        }
+    );
+
+
+    /* ================= SORT ================= */
+
+    sortSelect.addEventListener(
+        "change",
+        function () {
+
+            let sorted =
+                [...allListings];
+
+
+            if (this.value === "price-low") {
+
+                sorted.sort(
+                    (a, b) =>
+                        Number(a.price) -
+                        Number(b.price)
+                );
+
+            }
+
+
+            if (this.value === "price-high") {
+
+                sorted.sort(
+                    (a, b) =>
+                        Number(b.price) -
+                        Number(a.price)
+                );
+
+            }
+
+
+            if (this.value === "name") {
+
+                sorted.sort(
+                    (a, b) =>
+                        a.name.localeCompare(b.name)
+                );
+
+            }
+
+
+            const keyword =
+                searchInput.value
+                    .trim()
+                    .toLowerCase();
+
+
+            if (keyword) {
+
+                sorted =
+                    sorted.filter(listing =>
+
+                        listing.name
+                            .toLowerCase()
+                            .includes(keyword)
+
+                        ||
+
+                        listing.detail
+                            .toLowerCase()
+                            .includes(keyword)
+
+                    );
+
+            }
+
+
+            updateCount(sorted.length);
+
+            renderListings(sorted);
+
+        }
+    );
+
+
+    /* ================= COUNT ================= */
+
+    function updateCount(count = allListings.length) {
+
+        listingCount.textContent =
+            count +
+            (count === 1
+                ? " listing"
+                : " listings");
+
+    }
+
+
+    /* ================= HTML SAFETY ================= */
+
+    function escapeHtml(value) {
+
+        if (value === null || value === undefined) {
+            return "";
+        }
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+</script>
+
+
+</body>
+
+</html>
+

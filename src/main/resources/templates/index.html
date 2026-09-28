@@ -1,0 +1,2604 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MarketPlace | Buy & Sell Locally</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #172033;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            width: 100%;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            border-bottom: 1px solid #e5e7eb;
+
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+
+            min-height: 72px;
+
+            padding: 0 24px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 21px;
+            font-weight: 800;
+
+            color: #111827;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #2563eb;
+            color: white;
+
+            font-size: 18px;
+        }
+
+        #guest-navbar,
+        #user-navbar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .login-btn,
+        .register-btn,
+        .sell-btn,
+        .logout-btn {
+            border: none;
+            cursor: pointer;
+
+            padding: 10px 17px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.2s ease;
+        }
+
+        .login-btn {
+            color: #374151;
+            background: transparent;
+        }
+
+        .login-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .register-btn {
+            color: #2563eb;
+            border: 1px solid #2563eb;
+            background: white;
+        }
+
+        .register-btn:hover {
+            background: #eff6ff;
+        }
+
+        .sell-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            color: white;
+            background: #2563eb;
+        }
+
+        .sell-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .logout-btn {
+            color: #dc2626;
+            background: #fef2f2;
+        }
+
+        .logout-btn:hover {
+            background: #fee2e2;
+        }
+
+        .user-email {
+            color: #374151;
+            font-size: 13px;
+            font-weight: 600;
+
+            max-width: 220px;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .nav-link {
+            color: #374151;
+            font-size: 14px;
+            font-weight: 600;
+
+            padding: 8px 10px;
+
+            border-radius: 8px;
+
+            transition: 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background: #f3f4f6;
+            color: #2563eb;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            background:
+                linear-gradient(
+                    135deg,
+                    #eff6ff 0%,
+                    #ffffff 50%,
+                    #f8fafc 100%
+                );
+
+            padding: 85px 24px 75px;
+
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .hero-container {
+            max-width: 1000px;
+            margin: auto;
+
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+
+            padding: 7px 13px;
+
+            border-radius: 50px;
+
+            background: #dbeafe;
+            color: #1d4ed8;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 6vw, 64px);
+            line-height: 1.05;
+
+            font-weight: 800;
+
+            color: #111827;
+
+            margin-bottom: 18px;
+        }
+
+        .hero h1 span {
+            color: #2563eb;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            margin: 0 auto 30px;
+
+            color: #6b7280;
+
+            font-size: 17px;
+        }
+
+        .hero-search {
+            max-width: 720px;
+            margin: auto;
+
+            display: flex;
+
+            padding: 7px;
+
+            background: white;
+
+            border: 1px solid #dbe2ea;
+
+            border-radius: 14px;
+
+            box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+        }
+
+        .hero-search input {
+            flex: 1;
+
+            border: none;
+            outline: none;
+
+            padding: 14px 16px;
+
+            font-size: 15px;
+
+            background: transparent;
+        }
+
+        .hero-search button {
+            border: none;
+
+            padding: 0 25px;
+
+            border-radius: 10px;
+
+            background: #2563eb;
+            color: white;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        .hero-search button:hover {
+            background: #1d4ed8;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .section {
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 65px 24px;
+        }
+
+        .section-header {
+            margin-bottom: 25px;
+
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .section-title {
+            font-size: 27px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .section-subtitle {
+            color: #6b7280;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        /* =========================
+           MARKETPLACE FILTER
+        ========================= */
+
+        .marketplace-filter {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 16px;
+
+            padding: 18px;
+
+            display: grid;
+
+            grid-template-columns:
+                2fr
+                1fr
+                1fr
+                1fr
+                auto;
+
+            gap: 12px;
+
+            margin-bottom: 35px;
+
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.04);
+        }
+
+        .marketplace-filter input,
+        .marketplace-filter select {
+            width: 100%;
+
+            height: 46px;
+
+            padding: 0 13px;
+
+            border: 1px solid #dbe2ea;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            background: white;
+
+            color: #374151;
+
+            font-size: 14px;
+        }
+
+        .marketplace-filter input:focus,
+        .marketplace-filter select:focus {
+            border-color: #2563eb;
+        }
+
+        .filter-button {
+            height: 46px;
+
+            border: none;
+
+            padding: 0 20px;
+
+            border-radius: 9px;
+
+            background: #2563eb;
+            color: white;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        .filter-button:hover {
+            background: #1d4ed8;
+        }
+
+        /* =========================
+           CATEGORY GRID
+        ========================= */
+
+        .category-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(240px, 1fr));
+
+            gap: 18px;
+        }
+
+        .category-card {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            padding: 20px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 15px;
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+
+            border-color: #bfdbfe;
+
+            box-shadow:
+                0 12px 30px rgba(37, 99, 235, 0.08);
+        }
+
+        .category-icon {
+            width: 52px;
+            height: 52px;
+
+            flex-shrink: 0;
+
+            border-radius: 13px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eff6ff;
+            color: #2563eb;
+
+            font-size: 21px;
+        }
+
+        .category-info h3 {
+            font-size: 16px;
+            font-weight: 700;
+
+            color: #111827;
+
+            margin-bottom: 3px;
+        }
+
+        .category-info p {
+            color: #6b7280;
+
+            font-size: 13px;
+        }
+
+        /* =========================
+           LISTINGS
+        ========================= */
+
+        .listing-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fill, minmax(250px, 1fr));
+
+            gap: 20px;
+        }
+
+        .listing-card {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+        }
+
+        .listing-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 15px 35px rgba(15, 23, 42, 0.08);
+
+            border-color: #dbeafe;
+        }
+
+        .listing-image {
+            height: 175px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eff6ff,
+                    #f8fafc
+                );
+
+            color: #2563eb;
+
+            font-size: 48px;
+        }
+
+        .listing-content {
+            padding: 17px;
+        }
+
+        .listing-type {
+            display: inline-block;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            color: #2563eb;
+
+            background: #eff6ff;
+
+            padding: 4px 8px;
+
+            border-radius: 5px;
+
+            margin-bottom: 8px;
+        }
+
+        .listing-title {
+            font-size: 17px;
+
+            font-weight: 700;
+
+            color: #111827;
+
+            margin-bottom: 7px;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+        .listing-detail {
+            color: #6b7280;
+
+            font-size: 13px;
+
+            display: -webkit-box;
+
+            -webkit-line-clamp: 2;
+
+            -webkit-box-orient: vertical;
+
+            overflow: hidden;
+
+            min-height: 42px;
+
+            margin-bottom: 12px;
+        }
+
+        .listing-price {
+            font-size: 18px;
+
+            font-weight: 800;
+
+            color: #111827;
+
+            margin-bottom: 9px;
+        }
+
+        .listing-meta {
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            color: #6b7280;
+
+            font-size: 12px;
+        }
+
+        .listing-meta i {
+            color: #2563eb;
+        }
+
+        /* =========================
+           EMPTY / LOADING
+        ========================= */
+
+        .loading {
+            text-align: center;
+
+            padding: 45px 20px;
+
+            color: #6b7280;
+        }
+
+        .loading i {
+            font-size: 25px;
+
+            color: #2563eb;
+
+            margin-bottom: 10px;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+            padding: 55px 20px;
+
+            background: white;
+
+            border: 1px dashed #d1d5db;
+
+            border-radius: 14px;
+
+            color: #6b7280;
+        }
+
+        .empty-state i {
+            font-size: 38px;
+
+            margin-bottom: 12px;
+
+            color: #9ca3af;
+        }
+
+        .error-state {
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+            padding: 35px 20px;
+
+            background: #fff7ed;
+
+            border: 1px solid #fed7aa;
+
+            border-radius: 14px;
+
+            color: #9a3412;
+        }
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta {
+            max-width: 1152px;
+
+            margin: 20px auto 70px;
+
+            padding: 55px 30px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1d4ed8,
+                    #2563eb
+                );
+
+            color: white;
+
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 30px;
+
+            margin-bottom: 10px;
+        }
+
+        .cta p {
+            opacity: 0.9;
+
+            margin-bottom: 24px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 12px 20px;
+
+            background: white;
+
+            color: #1d4ed8;
+
+            border-radius: 9px;
+
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #111827;
+
+            color: #d1d5db;
+
+            padding: 45px 24px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .footer-logo {
+            color: white;
+
+            font-weight: 800;
+
+            font-size: 18px;
+        }
+
+        .footer-text {
+            font-size: 13px;
+
+            color: #9ca3af;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .marketplace-filter {
+                grid-template-columns:
+                    1fr
+                    1fr;
+            }
+
+            .filter-button {
+                width: 100%;
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .nav-container {
+                min-height: auto;
+
+                padding-top: 13px;
+                padding-bottom: 13px;
+
+                flex-wrap: wrap;
+            }
+
+            #guest-navbar,
+            #user-navbar {
+                width: 100%;
+
+                justify-content: flex-end;
+
+                flex-wrap: wrap;
+            }
+
+            .user-email {
+                max-width: 160px;
+            }
+
+            .hero {
+                padding: 60px 18px;
+            }
+
+            .hero-search {
+                flex-direction: column;
+
+                gap: 7px;
+            }
+
+            .hero-search button {
+                height: 46px;
+            }
+
+            .section {
+                padding: 45px 18px;
+            }
+
+            .section-header {
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+            .marketplace-filter {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                flex-direction: column;
+
+                text-align: center;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+            }
+
+            .login-btn,
+            .register-btn,
+            .sell-btn,
+            .logout-btn {
+                padding: 8px 11px;
+
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .listing-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <a href="/" class="logo">
+
+            <span class="logo-icon">
+                <i class="fa-solid fa-store"></i>
+            </span>
+
+            MarketPlace
+
+        </a>
+
+
+        <!-- Guest Navbar -->
+
+        <div id="guest-navbar">
+
+            <a href="/login" class="login-btn">
+                Login
+            </a>
+
+            <a href="/register" class="register-btn">
+                Register
+            </a>
+
+            <a href="/add-listing" class="sell-btn">
+
+                <i class="fa-solid fa-plus"></i>
+
+                Sell
+
+            </a>
+
+        </div>
+
+
+        <!-- User Navbar -->
+
+        <div id="user-navbar" style="display: none;">
+
+            <span id="user-email"
+                  class="user-email">
+            </span>
+
+            <a href="/my-listings"
+               class="nav-link">
+
+                My Listings
+
+            </a>
+
+            <a href="/add-listing"
+               class="sell-btn">
+
+                <i class="fa-solid fa-plus"></i>
+
+                Sell
+
+            </a>
+
+            <form method="post"
+                  action="/logout"
+                  style="display: inline;">
+
+                <button type="submit"
+                        class="logout-btn">
+
+                    Logout
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-container">
+
+        <div class="hero-badge">
+
+            <i class="fa-solid fa-bolt"></i>
+
+            &nbsp; Buy & Sell Locally
+
+        </div>
+
+
+        <h1>
+
+            Find what you need.
+            <span>Sell what you don't.</span>
+
+        </h1>
+
+
+        <p>
+
+            Discover products and services from people
+            around you. Simple, fast and local.
+
+        </p>
+
+
+        <div class="hero-search">
+
+            <input
+                    type="text"
+                    id="heroSearch"
+                    placeholder="Search products, services..."
+            >
+
+            <button
+                    type="button"
+                    onclick="searchFromHero()">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                Search
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main>
+
+
+    <!-- =========================
+         MARKETPLACE
+    ========================= -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <div>
+
+                <h2 class="section-title">
+                    Explore Marketplace
+                </h2>
+
+                <p class="section-subtitle">
+                    Search products and services available on the marketplace.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Filters -->
+
+        <div class="marketplace-filter">
+
+            <input
+                    type="text"
+                    id="listingSearch"
+                    placeholder="What are you looking for?"
+            >
+
+
+            <select id="categoryFilter">
+
+                <option value="">
+                    All Categories
+                </option>
+
+            </select>
+
+
+            <select id="cityFilter">
+
+                <option value="">
+                    All Cities
+                </option>
+
+            </select>
+
+
+            <select id="sortFilter">
+
+                <option value="default">
+                    Latest
+                </option>
+
+                <option value="price-low">
+                    Price: Low to High
+                </option>
+
+                <option value="price-high">
+                    Price: High to Low
+                </option>
+
+                <option value="name">
+                    Name: A-Z
+                </option>
+
+            </select>
+
+
+            <button
+                    type="button"
+                    class="filter-button"
+                    onclick="applyMarketplaceFilter()">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                Search
+
+            </button>
+
+        </div>
+
+
+        <!-- Listings -->
+
+        <div id="listingsContainer"
+             class="listing-grid">
+
+            <div class="loading">
+
+                <i class="fa-solid fa-spinner fa-spin"></i>
+
+                <div>
+                    Loading listings...
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         CATEGORIES
+    ========================= -->
+
+    <section class="section"
+             style="padding-top: 10px;">
+
+        <div class="section-header">
+
+            <div>
+
+                <h2 class="section-title">
+                    Browse Categories
+                </h2>
+
+                <p class="section-subtitle">
+                    Explore listings by category.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div id="categoriesContainer"
+             class="category-grid">
+
+            <div class="loading">
+
+                <i class="fa-solid fa-spinner fa-spin"></i>
+
+                <div>
+                    Loading categories...
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         CTA
+    ========================= -->
+
+    <section class="cta">
+
+        <h2>
+            Have something to sell?
+        </h2>
+
+        <p>
+            Create your listing and reach people looking
+            for products and services like yours.
+        </p>
+
+        <a href="/add-listing"
+           class="cta-button">
+
+            <i class="fa-solid fa-plus"></i>
+
+            Add Listing
+
+        </a>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="footer-container">
+
+        <div class="footer-logo">
+
+            <i class="fa-solid fa-store"></i>
+
+            MarketPlace
+
+        </div>
+
+
+        <div class="footer-text">
+
+            © 2026 MarketPlace.
+            Buy and sell locally.
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+    /* =========================================
+       GLOBAL DATA
+    ========================================= */
+
+    let allListings = [];
+
+    let allCategories = [];
+
+
+
+    /* =========================================
+       ESCAPE HTML
+    ========================================= */
+
+    function escapeHtml(value) {
+
+        if (value === null || value === undefined) {
+            return "";
+        }
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+
+    /* =========================================
+       AUTH NAVBAR
+    ========================================= */
+
+    async function loadAuthNavbar() {
+
+        const guestNavbar =
+            document.getElementById("guest-navbar");
+
+        const userNavbar =
+            document.getElementById("user-navbar");
+
+        const userEmail =
+            document.getElementById("user-email");
+
+
+        try {
+
+            const response =
+                await fetch("/api/auth/me");
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Authentication request failed"
+                );
+
+            }
+
+
+            const data =
+                await response.json();
+
+
+            /*
+             * Logged-in user
+             */
+
+            if (data.loggedIn === true) {
+
+                guestNavbar.style.display = "none";
+
+                userNavbar.style.display = "flex";
+
+
+                if (userEmail) {
+
+                    userEmail.textContent =
+                        data.email || "";
+
+                }
+
+            }
+
+
+            /*
+             * Guest
+             */
+
+            else {
+
+                guestNavbar.style.display = "flex";
+
+                userNavbar.style.display = "none";
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Auth navbar error:",
+                error
+            );
+
+
+            /*
+             * If auth API fails, keep
+             * guest navbar visible.
+             */
+
+            guestNavbar.style.display = "flex";
+
+            userNavbar.style.display = "none";
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       LOAD CATEGORIES
+    ========================================= */
+
+    async function loadCategories() {
+
+        const container =
+            document.getElementById(
+                "categoriesContainer"
+            );
+
+
+        try {
+
+            const response =
+                await fetch("/api/categories");
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to load categories"
+                );
+
+            }
+
+
+            const categories =
+                await response.json();
+
+
+            /*
+             * Save categories globally
+             */
+
+            allCategories = Array.isArray(categories)
+                ? categories
+                : [];
+
+
+            renderCategories(allCategories);
+
+            populateCategoryFilter(allCategories);
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Category loading error:",
+                error
+            );
+
+
+            container.innerHTML = `
+
+                <div class="error-state">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    <p>
+                        Unable to load categories.
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       RENDER CATEGORIES
+    ========================================= */
+
+    function renderCategories(categories) {
+
+        const container =
+            document.getElementById(
+                "categoriesContainer"
+            );
+
+
+        container.innerHTML = "";
+
+
+        if (!categories || categories.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="empty-state">
+
+                    <i class="fa-solid fa-layer-group"></i>
+
+                    <p>
+                        No categories available.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        categories.forEach(category => {
+
+            const card =
+                document.createElement("div");
+
+
+            card.className =
+                "category-card";
+
+
+            /*
+             * Category icon
+             */
+
+            let icon =
+                "fa-layer-group";
+
+
+            const categoryName =
+                category.name || "";
+
+
+            const categoryLower =
+                categoryName.toLowerCase();
+
+
+            if (categoryLower.includes("electronic")) {
+
+                icon =
+                    "fa-mobile-screen";
+
+            }
+
+            else if (categoryLower.includes("vehicle")) {
+
+                icon =
+                    "fa-car";
+
+            }
+
+            else if (categoryLower.includes("health")) {
+
+                icon =
+                    "fa-heart-pulse";
+
+            }
+
+            else if (categoryLower.includes("property")) {
+
+                icon =
+                    "fa-house";
+
+            }
+
+            else if (categoryLower.includes("service")) {
+
+                icon =
+                    "fa-screwdriver-wrench";
+
+            }
+
+
+            /*
+             * IMPORTANT:
+             * Opening backtick is present here.
+             */
+
+            card.innerHTML = `
+
+                <div class="category-icon">
+
+                    <i class="fa-solid ${icon}"></i>
+
+                </div>
+
+
+                <div class="category-info">
+
+                    <h3>
+                        ${escapeHtml(categoryName)}
+                    </h3>
+
+                    <p>
+                        Explore
+                        ${escapeHtml(categoryName)}
+                    </p>
+
+                </div>
+
+            `;
+
+
+            /*
+             * Clicking category opens
+             * category page.
+             */
+
+            card.addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "/category?categoryName=" +
+                        encodeURIComponent(categoryName);
+
+                }
+            );
+
+
+            container.appendChild(card);
+
+        });
+
+    }
+
+
+
+    /* =========================================
+       CATEGORY FILTER
+    ========================================= */
+
+    function populateCategoryFilter(categories) {
+
+        const select =
+            document.getElementById(
+                "categoryFilter"
+            );
+
+
+        /*
+         * Keep All Categories option
+         */
+
+        select.innerHTML = `
+
+            <option value="">
+                All Categories
+            </option>
+
+        `;
+
+
+        if (!categories) {
+            return;
+        }
+
+
+        categories.forEach(category => {
+
+            const option =
+                document.createElement("option");
+
+
+            option.value =
+                category.name || "";
+
+
+            option.textContent =
+                category.name || "";
+
+
+            select.appendChild(option);
+
+        });
+
+    }
+
+
+
+    /* =========================================
+       LOAD LISTINGS
+    ========================================= */
+
+    async function loadListings() {
+
+        const container =
+            document.getElementById(
+                "listingsContainer"
+            );
+
+
+        /*
+         * Show loading
+         */
+
+        container.innerHTML = `
+
+            <div class="loading">
+
+                <i class="fa-solid fa-spinner fa-spin"></i>
+
+                <div>
+                    Loading listings...
+                </div>
+
+            </div>
+
+        `;
+
+
+        try {
+
+            const response =
+                await fetch("/api/listings");
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to load listings. Status: " +
+                    response.status
+                );
+
+            }
+
+
+            const listings =
+                await response.json();
+
+
+            /*
+             * Ensure array
+             */
+
+            allListings =
+                Array.isArray(listings)
+                    ? listings
+                    : [];
+
+
+            /*
+             * Populate cities
+             */
+
+            populateCityFilter(allListings);
+
+
+            /*
+             * Render listings
+             */
+
+            renderListings(allListings);
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Listing loading error:",
+                error
+            );
+
+
+            container.innerHTML = `
+
+                <div class="error-state">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    <p>
+                        Unable to load listings.
+                    </p>
+
+                    <small>
+                        ${escapeHtml(error.message)}
+                    </small>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       CITY FILTER
+    ========================================= */
+
+    function populateCityFilter(listings) {
+
+        const select =
+            document.getElementById(
+                "cityFilter"
+            );
+
+
+        const currentValue =
+            select.value;
+
+
+        select.innerHTML = `
+
+            <option value="">
+                All Cities
+            </option>
+
+        `;
+
+
+        const cities =
+            new Set();
+
+
+        if (Array.isArray(listings)) {
+
+            listings.forEach(listing => {
+
+                if (
+                    listing.city &&
+                    String(listing.city).trim() !== ""
+                ) {
+
+                    cities.add(
+                        String(listing.city).trim()
+                    );
+
+                }
+
+            });
+
+        }
+
+
+        Array.from(cities)
+            .sort((a, b) =>
+                a.localeCompare(b)
+            )
+            .forEach(city => {
+
+                const option =
+                    document.createElement("option");
+
+
+                option.value =
+                    city;
+
+
+                option.textContent =
+                    city;
+
+
+                select.appendChild(option);
+
+            });
+
+
+        /*
+         * Restore selected city
+         */
+
+        if (
+            Array.from(cities).includes(currentValue)
+        ) {
+
+            select.value =
+                currentValue;
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       RENDER LISTINGS
+    ========================================= */
+
+    function renderListings(listings) {
+
+        const container =
+            document.getElementById(
+                "listingsContainer"
+            );
+
+
+        container.innerHTML = "";
+
+
+        if (
+            !Array.isArray(listings) ||
+            listings.length === 0
+        ) {
+
+            container.innerHTML = `
+
+                <div class="empty-state">
+
+                    <i class="fa-solid fa-box-open"></i>
+
+                    <p>
+                        No listings found.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        listings.forEach(listing => {
+
+            const card =
+                document.createElement("article");
+
+
+            card.className =
+                "listing-card";
+
+
+            /*
+             * Category
+             */
+
+            const categoryName =
+                listing.category &&
+                listing.category.name
+                    ? listing.category.name
+                    : "General";
+
+
+            const categoryLower =
+                categoryName.toLowerCase();
+
+
+            /*
+             * Default icon
+             */
+
+            let listingIcon =
+                "fa-box-open";
+
+
+            let listingImageClass =
+                "general-image";
+
+
+            if (
+                categoryLower.includes("electronic")
+            ) {
+
+                listingIcon =
+                    "fa-mobile-screen";
+
+                listingImageClass =
+                    "electronics-image";
+
+            }
+
+            else if (
+                categoryLower.includes("vehicle")
+            ) {
+
+                listingIcon =
+                    "fa-car";
+
+                listingImageClass =
+                    "vehicle-image";
+
+            }
+
+            else if (
+                categoryLower.includes("health")
+            ) {
+
+                listingIcon =
+                    "fa-heart-pulse";
+
+                listingImageClass =
+                    "health-image";
+
+            }
+
+            else if (
+                categoryLower.includes("property")
+            ) {
+
+                listingIcon =
+                    "fa-house";
+
+                listingImageClass =
+                    "property-image";
+
+            }
+
+            else if (
+                categoryLower.includes("service")
+            ) {
+
+                listingIcon =
+                    "fa-screwdriver-wrench";
+
+                listingImageClass =
+                    "service-image";
+
+            }
+
+
+            /*
+             * Listing type
+             */
+
+            const type =
+                listing.type
+                    ? listing.type
+                    : "Product";
+
+
+            /*
+             * Safe values
+             */
+
+            const name =
+                listing.name
+                    ? listing.name
+                    : "Untitled Listing";
+
+
+            const detail =
+                listing.detail
+                    ? listing.detail
+                    : "No description available.";
+
+
+            const city =
+                listing.city
+                    ? listing.city
+                    : "Location not available";
+
+
+            /*
+             * Price
+             */
+
+            let priceText =
+                "Price not available";
+
+
+            if (
+                listing.price !== null &&
+                listing.price !== undefined &&
+                listing.price !== ""
+            ) {
+
+                const numericPrice =
+                    Number(listing.price);
+
+
+                if (!Number.isNaN(numericPrice)) {
+
+                    priceText =
+                        "₹" +
+                        numericPrice.toLocaleString(
+                            "en-IN"
+                        );
+
+                }
+
+                else {
+
+                    priceText =
+                        "₹" +
+                        escapeHtml(
+                            listing.price
+                        );
+
+                }
+
+            }
+
+
+            /*
+             * Render card
+             */
+
+            card.innerHTML = `
+
+                <div class="listing-image ${listingImageClass}">
+
+                    <i class="fa-solid ${listingIcon}"></i>
+
+                </div>
+
+
+                <div class="listing-content">
+
+                    <span class="listing-type">
+
+                        ${escapeHtml(type)}
+
+                    </span>
+
+
+                    <h3 class="listing-title">
+
+                        ${escapeHtml(name)}
+
+                    </h3>
+
+
+                    <p class="listing-detail">
+
+                        ${escapeHtml(detail)}
+
+                    </p>
+
+
+                    <div class="listing-price">
+
+                        ${priceText}
+
+                    </div>
+
+
+                    <div class="listing-meta">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <span>
+                            ${escapeHtml(city)}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            /*
+             * Open listing details
+             */
+
+            card.addEventListener(
+                "click",
+                function () {
+
+                    if (
+                        listing.id !== null &&
+                        listing.id !== undefined
+                    ) {
+
+                        window.location.href =
+                            "/listing/" +
+                            encodeURIComponent(
+                                listing.id
+                            );
+
+                    }
+
+                }
+            );
+
+
+            container.appendChild(card);
+
+        });
+
+    }
+
+
+
+    /* =========================================
+       MARKETPLACE FILTER
+    ========================================= */
+
+    function applyMarketplaceFilter() {
+
+        const searchInput =
+            document.getElementById(
+                "listingSearch"
+            );
+
+
+        const categorySelect =
+            document.getElementById(
+                "categoryFilter"
+            );
+
+
+        const citySelect =
+            document.getElementById(
+                "cityFilter"
+            );
+
+
+        const sortSelect =
+            document.getElementById(
+                "sortFilter"
+            );
+
+
+        const search =
+            searchInput.value
+                .trim()
+                .toLowerCase();
+
+
+        const category =
+            categorySelect.value
+                .trim()
+                .toLowerCase();
+
+
+        const city =
+            citySelect.value
+                .trim()
+                .toLowerCase();
+
+
+        const sort =
+            sortSelect.value;
+
+
+        /*
+         * Filter from original
+         * listing array.
+         */
+
+        let filtered =
+            [...allListings];
+
+
+        /*
+         * Search
+         */
+
+        if (search !== "") {
+
+            filtered =
+                filtered.filter(listing => {
+
+                    const name =
+                        listing.name
+                            ? String(listing.name)
+                                .toLowerCase()
+                            : "";
+
+
+                    const detail =
+                        listing.detail
+                            ? String(listing.detail)
+                                .toLowerCase()
+                            : "";
+
+
+                    const listingCity =
+                        listing.city
+                            ? String(listing.city)
+                                .toLowerCase()
+                            : "";
+
+
+                    const listingCategory =
+                        listing.category &&
+                        listing.category.name
+                            ? String(
+                                listing.category.name
+                            ).toLowerCase()
+                            : "";
+
+
+                    return (
+                        name.includes(search) ||
+                        detail.includes(search) ||
+                        listingCity.includes(search) ||
+                        listingCategory.includes(search)
+                    );
+
+                });
+
+        }
+
+
+        /*
+         * Category
+         */
+
+        if (category !== "") {
+
+            filtered =
+                filtered.filter(listing => {
+
+                    const listingCategory =
+                        listing.category &&
+                        listing.category.name
+                            ? String(
+                                listing.category.name
+                            ).toLowerCase()
+                            : "";
+
+
+                    return (
+                        listingCategory === category
+                    );
+
+                });
+
+        }
+
+
+        /*
+         * City
+         */
+
+        if (city !== "") {
+
+            filtered =
+                filtered.filter(listing => {
+
+                    const listingCity =
+                        listing.city
+                            ? String(listing.city)
+                                .toLowerCase()
+                            : "";
+
+
+                    return (
+                        listingCity === city
+                    );
+
+                });
+
+        }
+
+
+        /*
+         * Sorting
+         */
+
+        if (sort === "price-low") {
+
+            filtered.sort(
+                (a, b) =>
+                    Number(a.price || 0) -
+                    Number(b.price || 0)
+            );
+
+        }
+
+
+        else if (sort === "price-high") {
+
+            filtered.sort(
+                (a, b) =>
+                    Number(b.price || 0) -
+                    Number(a.price || 0)
+            );
+
+        }
+
+
+        else if (sort === "name") {
+
+            filtered.sort(
+                (a, b) =>
+                    String(a.name || "")
+                        .localeCompare(
+                            String(b.name || "")
+                        )
+            );
+
+        }
+
+
+        /*
+         * Latest/default:
+         * Keep API order unchanged.
+         */
+
+        renderListings(filtered);
+
+    }
+
+
+
+    /* =========================================
+       HERO SEARCH
+    ========================================= */
+
+    function searchFromHero() {
+
+        const heroSearch =
+            document.getElementById(
+                "heroSearch"
+            );
+
+
+        const listingSearch =
+            document.getElementById(
+                "listingSearch"
+            );
+
+
+        const value =
+            heroSearch.value.trim();
+
+
+        /*
+         * Copy hero search
+         * into marketplace search.
+         */
+
+        listingSearch.value =
+            value;
+
+
+        /*
+         * Apply existing filter.
+         */
+
+        applyMarketplaceFilter();
+
+
+        /*
+         * Scroll to listings.
+         */
+
+        document
+            .getElementById(
+                "listingsContainer"
+            )
+            .scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+    }
+
+
+
+    /* =========================================
+       ENTER KEY - HERO SEARCH
+    ========================================= */
+
+    document
+        .getElementById("heroSearch")
+        .addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Enter") {
+
+                    searchFromHero();
+
+                }
+
+            }
+        );
+
+
+
+    /* =========================================
+       ENTER KEY - LISTING SEARCH
+    ========================================= */
+
+    document
+        .getElementById("listingSearch")
+        .addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Enter") {
+
+                    applyMarketplaceFilter();
+
+                }
+
+            }
+        );
+
+
+
+    /* =========================================
+       CATEGORY CHANGE
+    ========================================= */
+
+    document
+        .getElementById("categoryFilter")
+        .addEventListener(
+            "change",
+            function() {
+
+                applyMarketplaceFilter();
+
+            }
+        );
+
+
+
+    /* =========================================
+       CITY CHANGE
+    ========================================= */
+
+    document
+        .getElementById("cityFilter")
+        .addEventListener(
+            "change",
+            function() {
+
+                applyMarketplaceFilter();
+
+            }
+        );
+
+
+
+    /* =========================================
+       SORT CHANGE
+    ========================================= */
+
+    document
+        .getElementById("sortFilter")
+        .addEventListener(
+            "change",
+            function() {
+
+                applyMarketplaceFilter();
+
+            }
+        );
+
+
+
+    /* =========================================
+       PAGE LOAD
+    ========================================= */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+            /*
+             * Load navbar
+             */
+
+            loadAuthNavbar();
+
+
+            /*
+             * Load categories
+             */
+
+            loadCategories();
+
+
+            /*
+             * Load listings
+             */
+
+            loadListings();
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>
+
